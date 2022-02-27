@@ -5,7 +5,7 @@ apply plugin: "kotlin"
 configurations {
 	classesOnlyElements {
 		canBeConsumed = true
-		canBeResolved = false
+		canBeResolved = true
 	}
 }
 

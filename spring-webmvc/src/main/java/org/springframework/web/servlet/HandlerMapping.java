@@ -168,6 +168,7 @@ public interface HandlerMapping {
 	 * @throws Exception if there is an internal error
 	 */
 	@Nullable
+	// HandlerExecutionChain包含了目标handler 和 一些拦截器
 	HandlerExecutionChain getHandler(HttpServletRequest request) throws Exception;
 
 }

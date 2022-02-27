@@ -675,6 +675,10 @@ class CglibAopProxy implements AopProxy, Serializable {
 				// Get as late as possible to minimize the time we "own" the target, in case it comes from a pool...
 				target = targetSource.getTarget();
 				Class<?> targetClass = (target != null ? target.getClass() : null);
+				// 1.PointcutAdvisor ---> 对方法进行过滤，匹配上才getAdvice
+				// 2.IntroductionAdvisor
+				// 3.Advisor ---> 都getAdvice
+				// advisor.getAdvice只能返回org.aopalliance.intercept.MethodInterceptor的实例
 				List<Object> chain = this.advised.getInterceptorsAndDynamicInterceptionAdvice(method, targetClass);
 				Object retVal;
 				// Check whether we only have one InvokerInterceptor: that is,

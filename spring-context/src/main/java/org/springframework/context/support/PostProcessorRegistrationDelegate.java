@@ -77,7 +77,9 @@ final class PostProcessorRegistrationDelegate {
 
 		if (beanFactory instanceof BeanDefinitionRegistry) {
 			BeanDefinitionRegistry registry = (BeanDefinitionRegistry) beanFactory;
+			// 放程序员手动提供的BeanFactoryPostProcessor 通过AnnotationConfigApplication.addBeanFactoryPostProcessor添加的
 			List<BeanFactoryPostProcessor> regularPostProcessors = new ArrayList<>();
+			// 放程序员手动提供的BeanDefinitionRegistryPostProcessor通过AnnotationConfigApplication.addBeanFactoryPostProcessor添加的
 			List<BeanDefinitionRegistryPostProcessor> registryProcessors = new ArrayList<>();
 
 			for (BeanFactoryPostProcessor postProcessor : beanFactoryPostProcessors) {
@@ -96,9 +98,12 @@ final class PostProcessorRegistrationDelegate {
 			// uninitialized to let the bean factory post-processors apply to them!
 			// Separate between BeanDefinitionRegistryPostProcessors that implement
 			// PriorityOrdered, Ordered, and the rest.
+			// 放spring内部提供的BeanDefinitionRegistryPostProcessor
 			List<BeanDefinitionRegistryPostProcessor> currentRegistryProcessors = new ArrayList<>();
 
 			// First, invoke the BeanDefinitionRegistryPostProcessors that implement PriorityOrdered.
+			// 根据bean的类型获取bean的名字
+			// 从beanDefinition map
 			String[] postProcessorNames =
 					beanFactory.getBeanNamesForType(BeanDefinitionRegistryPostProcessor.class, true, false);
 			for (String ppName : postProcessorNames) {

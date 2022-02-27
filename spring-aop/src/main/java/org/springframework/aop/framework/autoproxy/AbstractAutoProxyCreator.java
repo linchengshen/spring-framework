@@ -335,6 +335,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 		}
 
 		// Create proxy if we have advice.
+		// 获取到适合bean的Advisors
 		Object[] specificInterceptors = getAdvicesAndAdvisorsForBean(bean.getClass(), beanName, null);
 		if (specificInterceptors != DO_NOT_PROXY) {
 			this.advisedBeans.put(cacheKey, Boolean.TRUE);
@@ -449,8 +450,11 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 			}
 		}
 
+		// 原生Advisor
+		// 转型为PointcutAdvisor--->DefaultPointcutAdvisor
 		Advisor[] advisors = buildAdvisors(beanName, specificInterceptors);
 		proxyFactory.addAdvisors(advisors);
+		// 目标对象包装类
 		proxyFactory.setTargetSource(targetSource);
 		customizeProxyFactory(proxyFactory);
 
@@ -531,6 +535,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 
 		Advisor[] advisors = new Advisor[allInterceptors.size()];
 		for (int i = 0; i < allInterceptors.size(); i++) {
+			// 包装成Advisor DefaultAdvisorAdapterRegistry
 			advisors[i] = this.advisorAdapterRegistry.wrap(allInterceptors.get(i));
 		}
 		return advisors;

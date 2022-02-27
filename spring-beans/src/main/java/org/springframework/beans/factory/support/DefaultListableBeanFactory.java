@@ -338,6 +338,11 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	//---------------------------------------------------------------------
 
 	@Override
+	protected <T> T doGetBean(String name, Class<T> requiredType, Object[] args, boolean typeCheckOnly) throws BeansException {
+		return super.doGetBean(name, requiredType, args, typeCheckOnly);
+	}
+
+	@Override
 	public <T> T getBean(Class<T> requiredType) throws BeansException {
 		return getBean(requiredType, (Object[]) null);
 	}

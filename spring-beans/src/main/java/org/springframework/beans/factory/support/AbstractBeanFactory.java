@@ -328,6 +328,10 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 					}
 				}
 
+				/**
+				 * 单例的 多了一步 加入ioc容器(map）
+				 * prototype：创建后返回 不加入ioc容器
+				 */
 				// Create bean instance.
 				if (mbd.isSingleton()) {
 					sharedInstance = getSingleton(beanName, () -> {

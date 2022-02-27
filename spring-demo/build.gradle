@@ -1,0 +1,10 @@
+description = "spring-demo"
+
+
+dependencies {
+    compile(project(":spring-beans"))
+    compile(project(":spring-context"))
+    compile(project(":spring-core"))
+    compile(project(":spring-expression"))
+    optional("org.aspectj:aspectjweaver")
+}

@@ -265,6 +265,9 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 			processConfigBeanDefinitions((BeanDefinitionRegistry) beanFactory);
 		}
 
+		/**
+		 * 对@Configuration的FULL模式进行增强
+		 */
 		enhanceConfigurationClasses(beanFactory);
 		beanFactory.addBeanPostProcessor(new ImportAwareBeanPostProcessor(beanFactory));
 	}
@@ -277,6 +280,8 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 		List<BeanDefinitionHolder> configCandidates = new ArrayList<>();
 		String[] candidateNames = registry.getBeanDefinitionNames();
 
+		// spring不知道有哪些类需要解析得到bd
+		// 所以这里要循环一遍
 		for (String beanName : candidateNames) {
 			BeanDefinition beanDef = registry.getBeanDefinition(beanName);
 			if (beanDef.getAttribute(ConfigurationClassUtils.CONFIGURATION_CLASS_ATTRIBUTE) != null) {
@@ -285,6 +290,15 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 				}
 			}
 			else if (ConfigurationClassUtils.checkConfigurationClassCandidate(beanDef, this.metadataReaderFactory)) {
+				/**
+				 * @Configuration---FULL模式---使用cglib进行动态代理增强
+				 *
+				 * @Component
+				 * @ComponentScan
+				 * @Import
+				 * @ImportResource
+				 * LITE模式
+				 */
 				configCandidates.add(new BeanDefinitionHolder(beanDef, beanName));
 			}
 		}
@@ -342,7 +356,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 			}
 			this.reader.loadBeanDefinitions(configClasses);
 			alreadyParsed.addAll(configClasses);
-			processConfig.tag("classCount", () -> String.valueOf(configClasses.size())).end();
+			processConfig.tag("classCnt", () -> String.valueOf(configClasses.size())).end();
 
 			candidates.clear();
 			if (registry.getBeanDefinitionCount() > candidateNames.length) {
@@ -437,6 +451,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 			return;
 		}
 
+		// 对所有@ConfigurationBean进行增强
 		ConfigurationClassEnhancer enhancer = new ConfigurationClassEnhancer();
 		for (Map.Entry<String, AbstractBeanDefinition> entry : configBeanDefs.entrySet()) {
 			AbstractBeanDefinition beanDef = entry.getValue();

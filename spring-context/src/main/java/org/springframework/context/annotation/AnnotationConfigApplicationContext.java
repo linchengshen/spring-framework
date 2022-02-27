@@ -61,6 +61,8 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 
 
 	/**
+	 * 通过注解配置应用上下文
+	 * 初始化两个bd的读取器，因为spring支持两种风格的编程方式schema和注解，所以有两个不同的扫描器
 	 * Create a new AnnotationConfigApplicationContext that needs to be populated
 	 * through {@link #register} calls and then manually {@linkplain #refresh refreshed}.
 	 */
