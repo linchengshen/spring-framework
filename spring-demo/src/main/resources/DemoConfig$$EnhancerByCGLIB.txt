@@ -1,0 +1,156 @@
+
+ClassLoader:
++-jdk.internal.loader.ClassLoaders$AppClassLoader@28c97a5
+  +-jdk.internal.loader.ClassLoaders$PlatformClassLoader@46445898
+
+Location:
+/C:/Users/yangzaozao/IdeaProjects/spring-framework/spring-demo/build/classes/java/main/
+
+/*
+ * Decompiled with CFR.
+ *
+ * Could not load the following classes:
+ *  com.gitlab.spring.config.A
+ */
+package com.gitlab.spring.config;
+
+import com.gitlab.spring.config.A;
+import com.gitlab.spring.config.DemoConfig;
+import java.lang.reflect.Method;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.cglib.core.ReflectUtils;
+import org.springframework.cglib.core.Signature;
+import org.springframework.cglib.proxy.Callback;
+import org.springframework.cglib.proxy.MethodInterceptor;
+import org.springframework.cglib.proxy.MethodProxy;
+import org.springframework.cglib.proxy.NoOp;
+import org.springframework.context.annotation.ConfigurationClassEnhancer;
+
+
+// @Bean的public方法才会被代理拦截
+// 普通方法不会被拦截
+// 代理逻辑有对FactoryBean的处理
+public class DemoConfig$$EnhancerBySpringCGLIB$$f8a23401
+extends DemoConfig
+implements ConfigurationClassEnhancer.EnhancedConfiguration {
+    private boolean CGLIB$BOUND;
+    public static Object CGLIB$FACTORY_DATA;
+    private static final ThreadLocal CGLIB$THREAD_CALLBACKS;
+    private static final Callback[] CGLIB$STATIC_CALLBACKS;
+    private MethodInterceptor CGLIB$CALLBACK_0;
+    private MethodInterceptor CGLIB$CALLBACK_1;
+    private NoOp CGLIB$CALLBACK_2;
+    private static Object CGLIB$CALLBACK_FILTER;
+    private static final Method CGLIB$getA$1$Method;
+    private static final MethodProxy CGLIB$getA$1$Proxy;
+    private static final Object[] CGLIB$emptyArgs;
+    private static final Method CGLIB$setBeanFactory$6$Method;
+    private static final MethodProxy CGLIB$setBeanFactory$6$Proxy;
+    public BeanFactory $$beanFactory;
+
+    public DemoConfig$$EnhancerBySpringCGLIB$$f8a23401() {
+        DemoConfig$$EnhancerBySpringCGLIB$$f8a23401 demoConfig$$EnhancerBySpringCGLIB$$f8a23401 = this;
+        DemoConfig$$EnhancerBySpringCGLIB$$f8a23401.CGLIB$BIND_CALLBACKS(demoConfig$$EnhancerBySpringCGLIB$$f8a23401);
+    }
+
+    static {
+        DemoConfig$$EnhancerBySpringCGLIB$$f8a23401.CGLIB$STATICHOOK2();
+        DemoConfig$$EnhancerBySpringCGLIB$$f8a23401.CGLIB$STATICHOOK1();
+    }
+
+    @Override
+    public final void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+        MethodInterceptor methodInterceptor = this.CGLIB$CALLBACK_1;
+        if (methodInterceptor == null) {
+            DemoConfig$$EnhancerBySpringCGLIB$$f8a23401.CGLIB$BIND_CALLBACKS(this);
+            methodInterceptor = this.CGLIB$CALLBACK_1;
+        }
+        if (methodInterceptor != null) {
+            Object object = methodInterceptor.intercept(this, CGLIB$setBeanFactory$6$Method, new Object[]{beanFactory}, CGLIB$setBeanFactory$6$Proxy);
+            return;
+        }
+        super.setBeanFactory(beanFactory);
+    }
+
+    public final A getA() {
+        MethodInterceptor methodInterceptor = this.CGLIB$CALLBACK_0;
+        if (methodInterceptor == null) {
+            DemoConfig$$EnhancerBySpringCGLIB$$f8a23401.CGLIB$BIND_CALLBACKS(this);
+            methodInterceptor = this.CGLIB$CALLBACK_0;
+        }
+        if (methodInterceptor != null) {
+            return (A)methodInterceptor.intercept(this, CGLIB$getA$1$Method, CGLIB$emptyArgs, CGLIB$getA$1$Proxy);
+        }
+        return super.getA();
+    }
+
+    public static void CGLIB$SET_STATIC_CALLBACKS(Callback[] callbackArray) {
+        CGLIB$STATIC_CALLBACKS = callbackArray;
+    }
+
+    public static void CGLIB$SET_THREAD_CALLBACKS(Callback[] callbackArray) {
+        CGLIB$THREAD_CALLBACKS.set(callbackArray);
+    }
+
+    public static MethodProxy CGLIB$findMethodProxy(Signature signature) {
+        String string = ((Object)signature).toString();
+        switch (string.hashCode()) {
+            case 1543696683: {
+                if (!string.equals("getA()Lcom/gitlab/spring/config/A;")) break;
+                return CGLIB$getA$1$Proxy;
+            }
+            case 2095635076: {
+                if (!string.equals("setBeanFactory(Lorg/springframework/beans/factory/BeanFactory;)V")) break;
+                return CGLIB$setBeanFactory$6$Proxy;
+            }
+        }
+        return null;
+    }
+
+    private static final void CGLIB$BIND_CALLBACKS(Object object) {
+        block2: {
+            Object object2;
+            DemoConfig$$EnhancerBySpringCGLIB$$f8a23401 demoConfig$$EnhancerBySpringCGLIB$$f8a23401;
+            block3: {
+                demoConfig$$EnhancerBySpringCGLIB$$f8a23401 = (DemoConfig$$EnhancerBySpringCGLIB$$f8a23401)object;
+                if (demoConfig$$EnhancerBySpringCGLIB$$f8a23401.CGLIB$BOUND) break block2;
+                demoConfig$$EnhancerBySpringCGLIB$$f8a23401.CGLIB$BOUND = true;
+                object2 = CGLIB$THREAD_CALLBACKS.get();
+                if (object2 != null) break block3;
+                object2 = CGLIB$STATIC_CALLBACKS;
+                if (CGLIB$STATIC_CALLBACKS == null) break block2;
+            }
+            Callback[] callbackArray = (Callback[])object2;
+            DemoConfig$$EnhancerBySpringCGLIB$$f8a23401 demoConfig$$EnhancerBySpringCGLIB$$f8a234012 = demoConfig$$EnhancerBySpringCGLIB$$f8a23401;
+            demoConfig$$EnhancerBySpringCGLIB$$f8a234012.CGLIB$CALLBACK_2 = (NoOp)callbackArray[2];
+            demoConfig$$EnhancerBySpringCGLIB$$f8a234012.CGLIB$CALLBACK_1 = (MethodInterceptor)callbackArray[1];
+            demoConfig$$EnhancerBySpringCGLIB$$f8a234012.CGLIB$CALLBACK_0 = (MethodInterceptor)callbackArray[0];
+        }
+    }
+
+    final void CGLIB$setBeanFactory$6(BeanFactory beanFactory) throws BeansException {
+        super.setBeanFactory(beanFactory);
+    }
+
+    final A CGLIB$getA$1() {
+        return super.getA();
+    }
+
+    static void CGLIB$STATICHOOK1() {
+        CGLIB$THREAD_CALLBACKS = new ThreadLocal();
+        CGLIB$emptyArgs = new Object[0];
+        Class<?> clazz = Class.forName("com.gitlab.spring.config.DemoConfig$$EnhancerBySpringCGLIB$$f8a23401");
+        Class<?> clazz2 = Class.forName("org.springframework.beans.factory.BeanFactoryAware");
+        CGLIB$setBeanFactory$6$Method = ReflectUtils.findMethods(new String[]{"setBeanFactory", "(Lorg/springframework/beans/factory/BeanFactory;)V"}, clazz2.getDeclaredMethods())[0];
+        CGLIB$setBeanFactory$6$Proxy = MethodProxy.create(clazz2, clazz, "(Lorg/springframework/beans/factory/BeanFactory;)V", "setBeanFactory", "CGLIB$setBeanFactory$6");
+        clazz2 = Class.forName("com.gitlab.spring.config.DemoConfig");
+        CGLIB$getA$1$Method = ReflectUtils.findMethods(new String[]{"getA", "()Lcom/gitlab/spring/config/A;"}, clazz2.getDeclaredMethods())[0];
+        CGLIB$getA$1$Proxy = MethodProxy.create(clazz2, clazz, "()Lcom/gitlab/spring/config/A;", "getA", "CGLIB$getA$1");
+    }
+
+    static void CGLIB$STATICHOOK2() {
+    }
+}
+
+Affect(row-cnt:2) cost in 680 ms.
