@@ -6,7 +6,7 @@ import org.springframework.cglib.proxy.MethodProxy;
 import java.lang.reflect.Method;
 
 public class CglibProxyTest {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		final Object target = new HelloServiceImpl();
 		HelloServiceImpl helloService = CglibProxyFactory.newProxy(HelloServiceImpl.class, new MethodInterceptor() {
 			@Override
@@ -18,6 +18,8 @@ public class CglibProxyTest {
 			}
 		});
 		helloService.sayHello("Taylor Swift");
+		System.out.println(helloService.getClass());
+		Thread.sleep(Integer.MAX_VALUE);
 	}
 
 	static class CglibProxyFactory {

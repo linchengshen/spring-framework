@@ -22,6 +22,6 @@ public class TransactionPropagationService {
 	public void doWork() {
 		personService.deleteById(13);
 		customerService.update();
-		int i = 1 / 0;
+		// int i = 1 / 0;
 	}
 }
