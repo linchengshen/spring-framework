@@ -29,4 +29,12 @@ public class ResponseBuilder {
         response.setData(data);
         return response;
     }
+
+    public static <T> Response<T> buildSuccess() {
+        Response<T> response = new Response<>();
+        response.setCode(MsgCode.SUCCESS.getCode());
+        response.setMessage(MsgCode.SUCCESS.getMessage());
+        response.setData(null);
+        return response;
+    }
 }

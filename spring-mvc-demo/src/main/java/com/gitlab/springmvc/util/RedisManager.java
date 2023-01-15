@@ -4,6 +4,7 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.params.SetParams;
 
+import java.util.List;
 import java.util.Objects;
 
 public class RedisManager {
@@ -38,6 +39,26 @@ public class RedisManager {
             return jedis.set(key, value, SetParams.setParams().ex(secondsToExpire));
         } finally {
             release(jedis);
+        }
+    }
+
+    public static long setList(String key, String value) {
+        JedisPool jedisPool = getJedisPool();
+        Jedis redis = jedisPool.getResource();
+        try {
+            return redis.lpush(key, value);
+        } finally {
+            release(redis);
+        }
+    }
+
+    public static List<String> brpop(String key, int timeout) {
+        JedisPool jedisPool = getJedisPool();
+        Jedis redis = jedisPool.getResource();
+        try {
+            return redis.brpop(timeout, key);
+        } finally {
+            release(redis);
         }
     }
 

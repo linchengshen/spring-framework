@@ -1,5 +1,6 @@
 package com.gitlab.springmvc.controller;
 
+import com.gitlab.springmvc.common.RedisKey;
 import com.gitlab.springmvc.common.Response;
 import com.gitlab.springmvc.dto.RedisValueDTO;
 import com.gitlab.springmvc.util.RedisManager;
@@ -33,5 +34,11 @@ public class RedisController {
     @GetMapping("/get")
     public Response<String> get(@RequestParam String key) {
         return ResponseBuilder.buildSuccess(RedisManager.get(key));
+    }
+
+    @GetMapping("/addList")
+    public Response<String> addList(@RequestParam String value) {
+        RedisManager.setList(RedisKey.LIST, value);
+        return ResponseBuilder.buildSuccess();
     }
 }
