@@ -14,6 +14,14 @@ public class ResponseBuilder {
         return response;
     }
 
+    public static <T> Response<T> buildFail(String message) {
+        Response<T> response = new Response<>();
+        response.setCode(MsgCode.NETWORK_ERROR.getCode());
+        response.setMessage(message);
+        response.setData(null);
+        return response;
+    }
+
     public static <T> Response<T> buildSuccess(T data) {
         Response<T> response = new Response<>();
         response.setCode(MsgCode.SUCCESS.getCode());
