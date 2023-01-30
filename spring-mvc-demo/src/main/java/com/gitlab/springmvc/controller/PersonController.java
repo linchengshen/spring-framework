@@ -2,7 +2,7 @@ package com.gitlab.springmvc.controller;
 
 import com.gitlab.springmvc.common.Response;
 import com.gitlab.springmvc.dto.PersonFormDTO;
-import com.gitlab.springmvc.util.ResponseBuilder;
+import com.gitlab.springmvc.util.Responses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,6 +33,6 @@ public class PersonController {
         } finally {
             jedis.close();
         }
-        return ResponseBuilder.buildSuccess(value);
+        return Responses.success(value);
     }
 }

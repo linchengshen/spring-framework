@@ -16,7 +16,7 @@ public class RedisListConsumer {
             while (true) {
                 System.out.println(222);
                 try {
-                    List<String> list = RedisManager.brpop(RedisKey.LIST, DEFAULT_TIMEOUT);
+                    List<String> list = RedisOperationUtil.brpop(RedisKey.LIST, DEFAULT_TIMEOUT);
                     if (!CollectionUtils.isEmpty(list)) {
                         System.out.println(Arrays.toString(list.toArray(new String[0])));
                     }

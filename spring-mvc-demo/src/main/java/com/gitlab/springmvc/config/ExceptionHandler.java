@@ -2,7 +2,7 @@ package com.gitlab.springmvc.config;
 
 
 import com.gitlab.springmvc.common.Response;
-import com.gitlab.springmvc.util.ResponseBuilder;
+import com.gitlab.springmvc.util.Responses;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
@@ -20,14 +20,14 @@ public class ExceptionHandler {
     @ResponseBody
     @org.springframework.web.bind.annotation.ExceptionHandler(Exception.class)
     public Response<String> handleException(HttpServletRequest request, HttpServletResponse response, Exception e) {
-        return ResponseBuilder.buildFail();
+        return Responses.fail();
     }
 
     @ResponseBody
     @org.springframework.web.bind.annotation.ExceptionHandler(JedisDataException.class)
     public Response<String> handleException(JedisDataException e) {
         e.printStackTrace();
-        return ResponseBuilder.buildFail();
+        return Responses.fail();
     }
 
     @ResponseBody
@@ -37,6 +37,6 @@ public class ExceptionHandler {
         String message = allErrors.stream()
                 .findFirst().map(ObjectError::getDefaultMessage)
                 .orElse(StringUtils.EMPTY);
-        return ResponseBuilder.buildFail(message);
+        return Responses.fail(message);
     }
 }

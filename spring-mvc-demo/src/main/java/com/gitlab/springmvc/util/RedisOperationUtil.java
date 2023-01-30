@@ -7,7 +7,7 @@ import redis.clients.jedis.params.SetParams;
 import java.util.List;
 import java.util.Objects;
 
-public class RedisManager {
+public class RedisOperationUtil {
 
     private volatile static JedisPool jedisPool;
 
@@ -65,7 +65,7 @@ public class RedisManager {
 
     private static JedisPool getJedisPool() {
         if (jedisPool == null) {
-            synchronized (RedisManager.class) {
+            synchronized (RedisOperationUtil.class) {
                 if (jedisPool == null) {
                     jedisPool = Context.getBeanOfType(JedisPool.class);
                 }
