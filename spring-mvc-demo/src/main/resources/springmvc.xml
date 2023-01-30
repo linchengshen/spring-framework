@@ -18,7 +18,7 @@
 	<mvc:interceptors>
 		<bean class="com.gitlab.springmvc.web.interceptor.MyHandlerInterceptor" />
 	</mvc:interceptors>
-
+	<bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor"/>
 	<!--视图解析器-->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/jsp/" />
