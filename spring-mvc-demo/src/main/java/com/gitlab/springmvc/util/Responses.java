@@ -1,6 +1,6 @@
 package com.gitlab.springmvc.util;
 
-import com.gitlab.springmvc.common.MsgCode;
+import com.gitlab.springmvc.common.ResponseCode;
 import com.gitlab.springmvc.common.Response;
 
 public class Responses {
@@ -11,7 +11,7 @@ public class Responses {
 
     public static <T> Response<T> fail(String message) {
         Response<T> response = new Response<>();
-        response.setCode(MsgCode.NETWORK_ERROR.getCode());
+        response.setCode(ResponseCode.NETWORK_ERROR.getCode());
         response.setMessage(message);
         response.setData(null);
         return response;
@@ -19,8 +19,8 @@ public class Responses {
 
     public static <T> Response<T> success(T data) {
         Response<T> response = new Response<>();
-        response.setCode(MsgCode.SUCCESS.getCode());
-        response.setMessage(MsgCode.SUCCESS.getMessage());
+        response.setCode(ResponseCode.SUCCESS.getCode());
+        response.setMessage(ResponseCode.SUCCESS.getMessage());
         response.setData(data);
         return response;
     }

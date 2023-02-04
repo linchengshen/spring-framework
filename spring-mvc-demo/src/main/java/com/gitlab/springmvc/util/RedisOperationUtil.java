@@ -62,6 +62,10 @@ public class RedisOperationUtil {
         }
     }
 
+    public static String watch(Jedis jedis, String... key) {
+        return jedis.watch(key);
+    }
+
 
     private static JedisPool getJedisPool() {
         if (jedisPool == null) {
@@ -74,9 +78,13 @@ public class RedisOperationUtil {
         return jedisPool;
     }
 
-    private static void release(Jedis jedis) {
+    public static void release(Jedis jedis) {
         if (Objects.nonNull(jedis)) {
             jedis.close();
         }
+    }
+
+    public static Jedis getJedis() {
+        return getJedisPool().getResource();
     }
 }

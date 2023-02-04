@@ -1,6 +1,6 @@
 package com.gitlab.springmvc.common;
 
-public enum MsgCode {
+public enum ResponseCode {
 
     NETWORK_ERROR(100, "网络错误，请稍后再试"),
 
@@ -17,7 +17,7 @@ public enum MsgCode {
      */
     private final String message;
 
-    MsgCode(Integer code, String message) {
+    ResponseCode(Integer code, String message) {
         this.code = code;
         this.message = message;
     }

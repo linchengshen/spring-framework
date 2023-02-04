@@ -1,6 +1,5 @@
 package com.gitlab.springmvc.listener;
 
-import com.gitlab.springmvc.util.RedisListConsumer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -16,7 +15,7 @@ public class DefaultApplicationListener implements ApplicationListener<ContextRe
     public void onApplicationEvent(ContextRefreshedEvent event) {
         ApplicationContext applicationContext = event.getApplicationContext();
         if (Objects.isNull(applicationContext.getParent())) {
-            new RedisListConsumer().start();
+            // something here
         }
 
     }
