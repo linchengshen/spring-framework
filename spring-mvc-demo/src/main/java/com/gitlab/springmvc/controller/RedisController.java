@@ -67,4 +67,16 @@ public class RedisController {
         redisService.testPipelined();
         return Responses.success();
     }
+
+    @GetMapping("/test/pipelinedSyncAndReturnAll")
+    public Response<String> testPipelinedSyncAndReturnAll() {
+        redisService.testPipelinedSyncAndReturnAll();
+        return Responses.success();
+    }
+
+    @GetMapping("/test/transaction")
+    public Response<String> testTransaction() {
+        redisService.testTransaction();
+        return Responses.success();
+    }
 }

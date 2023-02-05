@@ -11,4 +11,14 @@ public interface RedisService {
      * 测试 redis pipelined
      */
     void testPipelined();
+
+    /**
+     * 测试 pipelined syncAndReturnAll
+     */
+    void testPipelinedSyncAndReturnAll();
+
+    /**
+     * 测试 redis transaction
+     */
+    void testTransaction();
 }

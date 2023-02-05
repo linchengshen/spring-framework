@@ -1,5 +1,6 @@
 package com.gitlab.springmvc.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.gitlab.springmvc.common.RedisKey;
 import com.gitlab.springmvc.service.RedisService;
 import com.gitlab.springmvc.util.RedisOperationUtil;
@@ -13,10 +14,7 @@ import redis.clients.jedis.Pipeline;
 import redis.clients.jedis.Response;
 import redis.clients.jedis.Transaction;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 
 @Service
@@ -61,6 +59,7 @@ public class RedisServiceImpl implements RedisService {
         Jedis jedis = RedisOperationUtil.getJedis();
         try {
             int counter = 10;
+            int ttlInSeconds = 60;
             for (int i = 0; i < counter; i++) {
                 String key = RedisKey.TEST_PIPELINED + i;
                 jedis.del(key);
@@ -69,13 +68,60 @@ public class RedisServiceImpl implements RedisService {
             Map<String, Response<String>> responses = new LinkedHashMap<>();
             for (int i = 0; i < counter; i++) {
                 String key = RedisKey.TEST_PIPELINED + i;
+                // 将命令写入socket缓冲区，将命令写入，没有flush
+                // 不等待响应，Response相当于Holder
                 Response<String> response = pipelined.set(key, String.valueOf(i));
+                pipelined.expire(key, ttlInSeconds);
                 responses.put(key, response);
             }
+            // pipeline非事务
             // 这行代码才发送命令到redis服务器
+            // 并通过socket读取服务器响应
             pipelined.sync();
             for (Map.Entry<String, Response<String>> entry : responses.entrySet()) {
                 log.info("testPipelined----key:{},value:{}", entry.getKey(), Optional.ofNullable(entry.getValue()).map(Response::get).orElse(StringUtils.EMPTY));
+            }
+        } finally {
+            RedisOperationUtil.release(jedis);
+        }
+    }
+
+    @Override
+    public void testPipelinedSyncAndReturnAll() {
+        Jedis jedis = RedisOperationUtil.getJedis();
+        try {
+            final int counter = 10;
+            Pipeline pipelined = jedis.pipelined();
+            List<String> keys = new ArrayList<>(counter);
+            for (int i = 0; i < counter; i++) {
+                String key = RedisKey.TEST_PIPELINED + i;
+                pipelined.get(key);
+                keys.add(key);
+            }
+            List<Object> objects = pipelined.syncAndReturnAll();
+            for (int i = 0; i < counter; i++) {
+                log.info("testPipelinedSyncAndReturnAll----key:{},value:{}", keys.get(i), objects.get(i));
+            }
+        } finally {
+            RedisOperationUtil.release(jedis);
+        }
+    }
+
+    @Override
+    public void testTransaction() {
+        Jedis jedis = RedisOperationUtil.getJedis();
+        try {
+            final String key = RedisKey.TEST_TRANSACTION;
+            jedis.watch(key);
+            log.info("before transaction----key:{},value:{}", key, jedis.get(key));
+            Transaction transaction = jedis.multi();
+            Response<Long> response1 = transaction.incr(key);
+            Response<Long> response2 = transaction.incr(key);
+            List<Object> results = transaction.exec();
+            if (CollectionUtils.isNotEmpty(results)) {
+                log.info("after transaction----key:{},response1:{},response2:{}, results:{}", key, response1.get(), response2.get(), JSON.toJSON(results));
+            } else {
+                log.error("redis事务被丢弃");
             }
         } finally {
             RedisOperationUtil.release(jedis);
